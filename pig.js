@@ -131,6 +131,7 @@ but_3.addEventListener('click', function() {
     }
 
 
+    console.log();
 
 
 
