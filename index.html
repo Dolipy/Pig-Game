@@ -4,81 +4,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta name="description"
+        content="A beautiful Pig Game with modern glassmorphism design and smooth animations. Roll the dice, hold your score, and be the first to reach 100!">
+    <title>Pig Game | Modern Edition</title>
     <link rel="stylesheet" href="pig.css">
-
 </head>
 
 <body>
+    <main class="player">
+        <!-- Dice -->
+        <img src="dice-1.png" alt="Dice" class="dices hidden">
 
-    <section class="player">
-        <img src="dice-2.png" alt="dice_images" class="dices hidden ">
+        <!-- Controls -->
         <div class="buttn">
-            <button class="but-1">
-🔁 NEW GAME
-        </button>
-            <button class="but-2">
-          🎲 ROLL DICE 
-        </button>
-            <button class="but-3">
-          ⚖ HOLD 
-        </button>
+            <button class="but-1" id="new-game">
+                <span>�</span> NEW GAME
+            </button>
+            <button class="but-2" id="roll-dice">
+                <span>🎲</span> ROLL DICE
+            </button>
+            <button class="but-3" id="hold-score">
+                <span>📥</span> HOLD
+            </button>
         </div>
-        <article class="player-1">
+
+        <!-- Player 1 -->
+        <section class="player-1 active_background">
             <div class="player-0-score">
-                <h1>
-                    PLAYER 1
-                </h1>
-                <h2>
-                    0
-                </h2>
+                <h1>PLAYER 1</h1>
+                <h2 id="score--0">0</h2>
             </div>
             <div class="player-0-current">
-                <h1>
-                    CURRENT
-                </h1>
-                <h2>
-                    0
-                </h2>
+                <h1>CURRENT</h1>
+                <h2 id="current--0">0</h2>
             </div>
-        </article>
-        <article class="player-2">
+        </section>
+
+        <!-- Player 2 -->
+        <section class="player-2">
             <div class="player-1-score">
-                <h1>
-                    PLAYER 2
-                </h1>
-                <h2>
-                    0
-                </h2>
+                <h1>PLAYER 2</h1>
+                <h2 id="score--1">0</h2>
             </div>
             <div class="player-1-current">
-                <h1>
-                    CURRENT
-                </h1>
-                <h2>
-                    0
-                </h2>
+                <h1>CURRENT</h1>
+                <h2 id="current--1">0</h2>
             </div>
-        </article>
+        </section>
 
+        <!-- Winning Popup -->
         <article class="pop hidden">
-            <div>
-                <h3 class="congrats-info">🎉CONGRATULATIONS!🥳</h3> player <span class="x">X</span> WINS
-            </div>
+            <h3 class="congrats-info">🎉 CONGRATULATIONS! 🥳</h3>
+            <p style="font-size: 1.5rem; margin-bottom: 2rem;"><span class="x">PLAYER 1</span> WINS!</p>
             <div class="team">
-                <p class="t-1">
-                    PLAYER 1 <br>SCORE: 20 <br>WIN
-                </p>
-                <p class="t-2">
-                    PLAYER 2 <br>SCORE: 22 <br>LOSS
-                </p>
+                <div class="t-1">
+                    PLAYER 1<br>SCORE: 0<br>WIN
+                </div>
+                <div class="t-2">
+                    PLAYER 2<br>SCORE: 0<br>LOSS
+                </div>
             </div>
-
+            <button onclick="location.reload()" style="margin-top: 3rem; transform: none; position: static;"
+                class="but-1">PLAY AGAIN</button>
         </article>
+    </main>
 
-    </section>
     <script src="pig.js"></script>
-
 </body>
 
 </html>

@@ -1,218 +1,372 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap');
+
+:root {
+    --primary-pink: #ff48ad;
+    --secondary-pink: #fc61d5;
+    --accent-pink: #ffabd5;
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.6);
+    --shadow: 0 8px 32px 0 rgba(135, 31, 102, 0.2);
+    --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    font-weight: bolder;
+    font-family: 'Outfit', sans-serif;
 }
 
 body {
-    background-image: linear-gradient(to right, #ffabd5, #fc61d5, #ff48ad);
+    background: linear-gradient(135deg, #ffabd5, #fc61d5, #ff48ad);
+    background-attachment: fixed;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
 }
 
 .player {
     display: grid;
-    grid-template-columns: repeat(2 50%);
-    grid-template-rows: 100%;
-    grid-template-areas: "player-1 player-2";
-    justify-content: center;
-    margin: 10% 15%;
-    background-color: rgb(248, 219, 234)
+    grid-template-columns: 1fr 1fr;
+    width: 900px;
+    height: 600px;
+    background: var(--glass-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    box-shadow: var(--shadow);
+    position: relative;
+    overflow: hidden;
 }
 
-.team p {
-    display: inline-block;
-}
-
-.pop {
-    width: 30%;
-    height: 35%;
-    position: absolute;
-    background-color: #ffe7c7;
-    text-align: center;
-    left: 40%;
-    top: 43%;
-    align-content: center;
-    border-radius: 2rem;
-}
-
-.player-1 {
-    grid-area: player-1;
-    width: 70vh;
-    height: 60vh;
-}
-
-.player-0-score {
-    text-align: center;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    margin-top: 15%;
+.player-1,
+.player-2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    padding: 4rem;
+    transition: var(--transition);
 }
 
 .active_background {
-    background-color: #f600a4dc
+    background-color: rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0 0 40px rgba(255, 72, 173, 0.1);
 }
 
-.player-0-current {
-    text-align: center;
-    font-size: 13px;
-    font-family: Arial, Helvetica, sans-serif;
-    border: none;
-    background-color: rgb(255, 138, 187);
-    color: #ffff;
-    border-radius: 5px;
-    padding: 5px;
-    width: 20%;
-    height: 15%;
-    margin-left: 40%;
-    margin-top: 25%;
-}
-
-.player-2 {
-    grid-area: player-2;
-    /*background-color: rgb(240, 109, 175);*/
-    width: 70vh;
-    height: 60vh;
-}
-
+/* Player Scores */
+.player-0-score,
 .player-1-score {
     text-align: center;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    margin-top: 15%;
 }
 
-.player-0-score h2 {
-    margin-top: 5%;
-    text-align: center;
-    font-size: 70px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    color: rgb(255, 173, 207);
-}
-
-.player-1-score h2 {
-    margin-top: 5%;
-    text-align: center;
-    font-size: 70px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    color: rgb(241, 47, 128);
-}
-
-.player-0-score h1 {
-    color: black;
-    font-size: 50px;
-    font-weight: 500;
-    font-family: 'Times New Roman', Times, serif;
-}
-
+.player-0-score h1,
 .player-1-score h1 {
-    color: black;
-    font-size: 50px;
-    font-weight: 500;
-    font-family: 'Times New Roman', Times, serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    color: #444;
+    letter-spacing: 2px;
+    margin-bottom: 0.5rem;
 }
 
+.player-0-score h2,
+.player-1-score h2 {
+    font-size: 6rem;
+    font-weight: 800;
+    background: linear-gradient(to bottom, #444, #888);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: var(--transition);
+}
+
+.player-1.active_background .player-0-score h2 {
+    background: linear-gradient(to bottom, var(--primary-pink), var(--secondary-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.player-2.active_background .player-1-score h2 {
+    background: linear-gradient(to bottom, var(--primary-pink), var(--secondary-pink));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+/* Current Scores */
+.player-0-current,
 .player-1-current {
-    text-align: center;
-    font-size: 13px;
-    font-family: Arial, Helvetica, sans-serif;
-    border: none;
-    background-color: rgb(255, 35, 127);
-    border-radius: 5px;
-    padding: 5px;
+    background: var(--primary-pink);
     color: white;
-    height: 15%;
-    width: 20%;
-    margin-left: 40%;
-    margin-top: 25%;
+    padding: 1.5rem 3rem;
+    border-radius: 1.5rem;
+    text-align: center;
+    box-shadow: 0 10px 20px rgba(255, 72, 173, 0.3);
+    transition: var(--transition);
 }
 
-.player-0-current h1 {
-    margin-top: 10%;
-    font-size: 15px;
-}
-
-.player-0-current h2 {
-    margin-top: 10%;
-}
-
+.player-0-current h1,
 .player-1-current h1 {
-    margin-top: 10%;
-    font-size: 15px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.9);
 }
 
+.player-0-current h2,
 .player-1-current h2 {
-    margin-top: 10%;
+    font-size: 2rem;
+    font-weight: 600;
+}
+
+/* Controls */
+.buttn {
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 300px;
+    /* Give it a width to center flex items */
+    margin-left: -150px;
+    /* Offset to center the container */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+    pointer-events: none;
+    /* Let clicks pass through empty space */
 }
 
 .buttn button {
-    border-radius: 50px;
-    width: 8%;
-    height: 5%;
-    background-color: #ffff;
-    color: black;
-    font-size: 15px;
+    position: relative;
+    pointer-events: auto;
+    /* Enable clicks on buttons */
+    background: white;
     border: none;
+    padding: 1rem 2.5rem;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
     cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: var(--transition);
+    white-space: nowrap;
+    color: #444;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
 
-.hidden {
-    display: none;
+.buttn button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    color: var(--primary-pink);
 }
 
-.t-1 {
-    width: 100px;
-    height: 100px;
-    border: 5px solid #ff6ad7;
-    background-color: #ffffff;
-    font-size: 15px;
-    padding-top: 1rem;
-    border-radius: 2rem;
-}
-
-.t-2 {
-    width: 100px;
-    height: 100px;
-    border: 5px solid #faaee6;
-    background-color: #ffffff;
-    font-size: 15px;
-    padding-top: 1rem;
-    border-radius: 2rem;
-}
-
-.dices {
-    width: 58px;
-    height: 58px;
-    position: absolute;
-    top: 40%;
-    left: 48%;
+.buttn button:active {
+    transform: scale(0.95);
 }
 
 .but-1 {
-    position: absolute;
-    top: 25%;
-    left: 46%;
+    margin-top: 4rem;
 }
 
 .but-2 {
-    position: absolute;
-    top: 63%;
-    left: 46%;
+    margin-top: 250px;
+    /* Push below the dice */
 }
 
 .but-3 {
+    margin-top: 1.5rem;
+}
+
+/* Dice */
+.dices {
     position: absolute;
-    top: 70%;
-    left: 46%;
+    top: 260px;
+    /* Adjusted to sit between buttons */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    height: 100px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+    border-radius: 15px;
+    transition: var(--transition);
+    z-index: 5;
+}
+
+.dices.hidden {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5) rotate(180deg);
+}
+
+.dice-animation {
+    animation: roll 0.4s ease-out;
+}
+
+@keyframes roll {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg) scale(0.8);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg) scale(1);
+    }
+}
+
+/* Winner Popup */
+.pop {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 80%;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 30px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0.5);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 1;
+    }
 }
 
 .congrats-info {
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
-    color: rgb(255, 73, 136);
-    padding-bottom: 1rem;
+    font-size: 2.5rem;
+    color: var(--primary-pink);
+    margin-bottom: 2rem;
+}
+
+.team {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.t-1,
+.t-2 {
+    background: white;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    border: 2px solid var(--accent-pink);
+    min-width: 150px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Responsive Design */
+@media (max-width: 950px) {
+    body {
+        padding: 20px;
+        overflow-y: auto;
+        align-items: flex-start;
+    }
+
+    .player {
+        width: 100%;
+        max-width: 500px;
+        height: auto;
+        min-height: 850px;
+        grid-template-columns: 1fr;
+        grid-template-rows: 1fr 1fr;
+        margin: 2rem 0;
+    }
+
+    .player-1,
+    .player-2 {
+        padding: 2rem;
+    }
+
+    .player-0-score h1,
+    .player-1-score h1 {
+        font-size: 1.8rem;
+    }
+
+    .player-0-score h2,
+    .player-1-score h2 {
+        font-size: 4rem;
+    }
+
+    /* Controls for Mobile */
+    .buttn {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin-left: 0;
+        pointer-events: none;
+    }
+
+    .but-1 {
+        margin-top: 1.5rem;
+    }
+
+    .but-2 {
+        margin-top: calc(50% + 50px);
+        /* Center relative to the split */
+    }
+
+    .but-3 {
+        margin-top: 1rem;
+    }
+
+    .buttn button {
+        padding: 0.8rem 2rem;
+        font-size: 0.9rem;
+    }
+
+    .dices {
+        top: 50%;
+        width: 80px;
+        height: 80px;
+    }
+
+    /* Winner Popup Mobile */
+    .pop {
+        width: 90%;
+        height: 70%;
+    }
+
+    .team {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .congrats-info {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .player {
+        min-height: 750px;
+    }
+
+    .player-0-score h2,
+    .player-1-score h2 {
+        font-size: 3.5rem;
+    }
 }

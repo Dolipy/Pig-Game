@@ -1,139 +1,101 @@
 'use strict';
 
-const score_1 = document.querySelector('.player-0-score h2')
-const score_2 = document.querySelector('.player-1-score h2')
-const current_1 = document.querySelector('.player-0-current h2')
-const current_2 = document.querySelector('.player-1-current h2')
-const but_1 = document.querySelector('.but-1')
-const but_2 = document.querySelector('.but-2')
-const but_3 = document.querySelector('.but-3')
-const dices = document.querySelector('.dices')
-const player_1 = document.querySelector('.player-1')
-const player_2 = document.querySelector('.player-2')
-const pops = document.querySelector('.pop')
+// Selecting elements
+const score0El = document.getElementById('score--0');
+const score1El = document.getElementById('score--1');
+const current0El = document.getElementById('current--0');
+const current1El = document.getElementById('current--1');
 
+const diceEl = document.querySelector('.dices');
+const btnNew = document.getElementById('new-game');
+const btnRoll = document.getElementById('roll-dice');
+const btnHold = document.getElementById('hold-score');
 
+const player0El = document.querySelector('.player-1');
+const player1El = document.querySelector('.player-2');
+const popupEl = document.querySelector('.pop');
+const winnerText = document.querySelector('.x');
+const team1Info = document.querySelector('.t-1');
+const team2Info = document.querySelector('.t-2');
 
+let scores, currentScore, activePlayer, playing;
 
-score_1.textContent = 0;
-score_2.textContent = 0;
-dices.classList.add('hidden');
-player_1.classList.add('active_background');
+// Starting conditions
+const init = function () {
+    scores = [0, 0];
+    currentScore = 0;
+    activePlayer = 0;
+    playing = true;
 
+    score0El.textContent = 0;
+    score1El.textContent = 0;
+    current0El.textContent = 0;
+    current1El.textContent = 0;
 
+    diceEl.classList.add('hidden');
+    player0El.classList.add('active_background');
+    player1El.classList.remove('active_background');
+    popupEl.classList.add('hidden');
+};
+init();
 
-let p_score_1 = 0;
-let p_score_2 = 0;
+const switchPlayer = function () {
+    document.getElementById(`current--${activePlayer}`).textContent = 0;
+    currentScore = 0;
+    activePlayer = activePlayer === 0 ? 1 : 0;
+    player0El.classList.toggle('active_background');
+    player1El.classList.toggle('active_background');
+};
 
-let c_score = 0;
-let active_player = 0;
-let playing = true;
-
-//document.querySelector('.player-1').style.backgroundColor = 'rgb(240, 109, 175)';
-//background-color: rgb(240, 109, 175);
-
-but_2.addEventListener('click', function() {
-
+// Rolling dice functionality
+btnRoll.addEventListener('click', function () {
     if (playing) {
-
-
-
+        // 1. Generating a random dice roll
         const dice = Math.trunc(Math.random() * 6) + 1;
-        console.log(dice);
 
-        dices.classList.remove('hidden');
-        dices.src = `dice-${dice}.png`;
+        // 2. Display dice with animation
+        diceEl.classList.remove('hidden');
+        diceEl.src = `dice-${dice}.png`;
 
+        // Add roll animation
+        diceEl.classList.remove('dice-animation');
+        void diceEl.offsetWidth; // Trigger reflow
+        diceEl.classList.add('dice-animation');
+
+        // 3. Check for rolled 1
         if (dice !== 1) {
-            c_score += dice
-            document.querySelector(`.player-${active_player}-current h2`).textContent = c_score
-
-
-
+            // Add dice to current score
+            currentScore += dice;
+            document.getElementById(`current--${activePlayer}`).textContent = currentScore;
         } else {
-
-            document.querySelector(`.player-${active_player}-current h2`).textContent = 0;
-            c_score = 0;
-            // player_1.classList.remove('active_background');
-            // player_2.classList.add('active_background');
-
-            if (active_player === 0) {
-                active_player = 1;
-                player_1.classList.remove('active_background')
-                player_2.classList.add('active_background')
-
-
-
-            } else {
-                active_player = 0;
-                player_2.classList.remove('active_background')
-                player_1.classList.add('active_background')
-
-            }
-
-
-            //active_player = active_player === 0 ? 1 : 0;
-
+            // Switch to next player
+            switchPlayer();
         }
     }
-
-
-
-
-})
-
-but_3.addEventListener('click', function() {
-
-    if (playing) {
-
-        if (active_player === 0) {
-            p_score_1 += c_score;
-            document.querySelector(`.player-${active_player}-score h2`).textContent = p_score_1;
-            document.querySelector(`.player-${active_player}-current h2`).textContent = 0;
-            c_score = 0;
-            active_player = 1;
-            player_1.classList.remove('active_background')
-            player_2.classList.add('active_background')
-
-
-
-        } else {
-            p_score_2 += c_score;
-            document.querySelector(`.player-${active_player}-score h2`).textContent = p_score_2;
-            document.querySelector(`.player-${active_player}-current h2`).textContent = 0;
-            c_score = 0;
-            active_player = 0;
-            player_2.classList.remove('active_background')
-            player_1.classList.add('active_background')
-
-        }
-
-        if (p_score_1 >= 100) {
-            document.querySelector('.x').textContent = 'player -1';
-
-
-
-        } else if (p_score_2 >= 100) {
-            document.querySelector('.x').textContent = 'player -2';
-
-
-        }
-
-
-        if (p_score_1 >= 100 || p_score_2 >= 100) {
-
-            playing = false;
-            document.querySelector('.t-1').textContent = `TEAM:PLAYER 1 SCORE: ${p_score_1}`;
-            document.querySelector('.t-2').textContent = `TEAM:PLAYER 1 SCORE: ${p_score_2}`;
-            pops.classList.remove('hidden');
-        }
-
-    }
-
-
-
-
-
-
-
 });
+
+btnHold.addEventListener('click', function () {
+    if (playing) {
+        // 1. Add current score to active player's score
+        scores[activePlayer] += currentScore;
+        document.getElementById(`score--${activePlayer}`).textContent = scores[activePlayer];
+
+        // 2. Check if player's score is >= 100
+        if (scores[activePlayer] >= 100) {
+            // Finish the game
+            playing = false;
+            diceEl.classList.add('hidden');
+
+            winnerText.textContent = `PLAYER ${activePlayer + 1}`;
+            team1Info.innerHTML = `PLAYER 1<br>SCORE: ${scores[0]}<br>${scores[0] >= 100 ? 'WINNER' : 'LOSE'}`;
+            team2Info.innerHTML = `PLAYER 2<br>SCORE: ${scores[1]}<br>${scores[1] >= 100 ? 'WINNER' : 'LOSE'}`;
+
+            popupEl.classList.remove('hidden');
+        } else {
+            // Switch to the next player
+            switchPlayer();
+        }
+    }
+});
+
+btnNew.addEventListener('click', init);
