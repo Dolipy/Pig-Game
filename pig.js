@@ -22,6 +22,7 @@ let scores, currentScore, activePlayer, playing;
 
 // Starting conditions
 const init = function () {
+    btnNew.innerHTML = '<span>🔄</span> NEW GAME';
     scores = [0, 0];
     currentScore = 0;
     activePlayer = 0;

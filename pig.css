@@ -312,34 +312,53 @@ body {
     .buttn {
         position: absolute;
         top: 0;
-        bottom: 0;
         left: 0;
-        right: 0;
         width: 100%;
-        margin-left: 0;
+        height: 100%;
+        display: block;
         pointer-events: none;
+        z-index: 20;
+        margin-left: 0 !important;
     }
 
     .but-1 {
-        margin-top: 1.5rem;
+        position: absolute;
+        top: 3rem;
+        left: 50%;
+        transform: translateX(-50%);
+        margin-top: 0 !important;
+        pointer-events: auto;
     }
 
     .but-2 {
-        margin-top: calc(50% + 50px);
-        /* Center relative to the split */
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-100px, 70px);
+        margin-top: 0 !important;
+        pointer-events: auto;
     }
 
     .but-3 {
-        margin-top: 1rem;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(100px, 70px);
+        margin-top: 0 !important;
+        pointer-events: auto;
     }
 
     .buttn button {
-        padding: 0.8rem 2rem;
-        font-size: 0.9rem;
+        padding: 0.8rem 1.2rem;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        min-width: 130px;
+        justify-content: center;
     }
 
     .dices {
         top: 50%;
+        transform: translate(-50%, -50%);
         width: 80px;
         height: 80px;
     }
@@ -347,7 +366,9 @@ body {
     /* Winner Popup Mobile */
     .pop {
         width: 90%;
-        height: 70%;
+        max-height: 90%;
+        height: auto;
+        padding: 2rem 1rem;
     }
 
     .team {
@@ -358,15 +379,44 @@ body {
     .congrats-info {
         font-size: 1.8rem;
     }
+
+    .t-1,
+    .t-2 {
+        padding: 1rem;
+        min-width: 0;
+        width: 100%;
+        max-width: 200px;
+    }
 }
 
 @media (max-width: 480px) {
     .player {
-        min-height: 750px;
+        min-height: 800px;
+        margin: 1rem 0;
+    }
+
+    .player-1,
+    .player-2 {
+        padding: 1.5rem;
+    }
+
+    .player-0-score h1,
+    .player-1-score h1 {
+        font-size: 1.4rem;
     }
 
     .player-0-score h2,
     .player-1-score h2 {
-        font-size: 3.5rem;
+        font-size: 3.2rem;
+    }
+
+    .player-0-current,
+    .player-1-current {
+        padding: 1rem 2rem;
+    }
+
+    .but-2,
+    .but-3 {
+        transform: translate(-50%, 60px);
     }
 }
